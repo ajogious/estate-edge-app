@@ -9,7 +9,6 @@ export const metadata = {
 };
 
 const MainLayout = ({ children }) => {
-  console.log(children);
   return (
     <html>
       <body>
