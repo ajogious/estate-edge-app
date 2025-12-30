@@ -9,7 +9,7 @@ const UserSchema = new Schema(
     },
     username: {
       type: String,
-      unique: [true, "Username is required"],
+      unique: [true, "Username already exists"],
     },
     image: {
       type: String,

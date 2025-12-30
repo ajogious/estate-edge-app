@@ -53,7 +53,7 @@ const PropertyrSchema = new Schema(
     },
     images: [
       {
-        types: String,
+        type: String,
       },
     ],
     is_featured: {
