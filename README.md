@@ -1,1 +1,3 @@
-Estate Edge
+### Estate Edge is a complete full-stack application build for managing properties
+
+still a work in progress...
