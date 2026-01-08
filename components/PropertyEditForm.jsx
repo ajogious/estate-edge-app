@@ -1,10 +1,13 @@
-import addProperty from "@/app/actions/addProperty";
+import updateProperty from "@/app/actions/updateProperty";
 import { AMENITIES } from "@/constants/amenities";
 
-const PropertyAddForm = () => {
+const PropertyEditForm = ({ property }) => {
+  const updatePropertyById = updateProperty.bind(null, property._id);
   return (
-    <form action={addProperty}>
-      <h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
+    <form action={updatePropertyById}>
+      <h2 className="text-3xl text-center font-semibold mb-6">
+        Update Property
+      </h2>
 
       <div className="mb-4">
         <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
@@ -14,6 +17,7 @@ const PropertyAddForm = () => {
           id="type"
           name="type"
           className="border rounded w-full py-2 px-3"
+          defaultValue={property.type}
           required
         >
           <option value="Apartment">Apartment</option>
@@ -35,6 +39,7 @@ const PropertyAddForm = () => {
           name="name"
           className="border rounded w-full py-2 px-3 mb-2"
           placeholder="eg. Beautiful Apartment In Miami"
+          defaultValue={property.name}
           required
         />
       </div>
@@ -51,6 +56,7 @@ const PropertyAddForm = () => {
           className="border rounded w-full py-2 px-3"
           rows="4"
           placeholder="Add an optional description of your property"
+          defaultValue={property.description}
         ></textarea>
       </div>
 
@@ -61,6 +67,7 @@ const PropertyAddForm = () => {
           id="street"
           name="location.street"
           className="border rounded w-full py-2 px-3 mb-2"
+          defaultValue={property.location.street}
           placeholder="Street"
         />
         <input
@@ -68,6 +75,7 @@ const PropertyAddForm = () => {
           id="city"
           name="location.city"
           className="border rounded w-full py-2 px-3 mb-2"
+          defaultValue={property.location.city}
           placeholder="City"
           required
         />
@@ -76,6 +84,7 @@ const PropertyAddForm = () => {
           id="state"
           name="location.state"
           className="border rounded w-full py-2 px-3 mb-2"
+          defaultValue={property.location.state}
           placeholder="State"
           required
         />
@@ -84,6 +93,7 @@ const PropertyAddForm = () => {
           id="zipcode"
           name="location.zipcode"
           className="border rounded w-full py-2 px-3 mb-2"
+          defaultValue={property.location.zipcode}
           placeholder="Zipcode"
         />
       </div>
@@ -98,6 +108,7 @@ const PropertyAddForm = () => {
             id="beds"
             name="beds"
             className="border rounded w-full py-2 px-3"
+            defaultValue={property.beds}
             required
           />
         </div>
@@ -110,6 +121,7 @@ const PropertyAddForm = () => {
             id="baths"
             name="baths"
             className="border rounded w-full py-2 px-3"
+            defaultValue={property.baths}
             required
           />
         </div>
@@ -125,10 +137,12 @@ const PropertyAddForm = () => {
             id="square_feet"
             name="square_feet"
             className="border rounded w-full py-2 px-3"
+            defaultValue={property.square_feet}
             required
           />
         </div>
       </div>
+
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2">Amenities</label>
 
@@ -140,6 +154,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value={amenity}
                 className="mr-2"
+                defaultChecked={property.amenities?.includes(amenity)}
               />
               {amenity}
             </label>
@@ -161,6 +176,7 @@ const PropertyAddForm = () => {
               id="weekly_rate"
               name="rates.weekly"
               className="border rounded w-full py-2 px-3"
+              defaultValue={property.rates.weekly}
             />
           </div>
           <div className="flex items-center">
@@ -172,6 +188,7 @@ const PropertyAddForm = () => {
               id="monthly_rate"
               name="rates.monthly"
               className="border rounded w-full py-2 px-3"
+              defaultValue={property.rates.monthly}
             />
           </div>
           <div className="flex items-center">
@@ -183,6 +200,7 @@ const PropertyAddForm = () => {
               id="nightly_rate"
               name="rates.nightly"
               className="border rounded w-full py-2 px-3"
+              defaultValue={property.rates.nightly}
             />
           </div>
         </div>
@@ -200,6 +218,7 @@ const PropertyAddForm = () => {
           id="seller_name"
           name="seller_info.name"
           className="border rounded w-full py-2 px-3"
+          defaultValue={property.seller_info.name}
           placeholder="Name"
         />
       </div>
@@ -216,6 +235,7 @@ const PropertyAddForm = () => {
           name="seller_info.email"
           className="border rounded w-full py-2 px-3"
           placeholder="Email address"
+          defaultValue={property.seller_info.email}
           required
         />
       </div>
@@ -231,22 +251,8 @@ const PropertyAddForm = () => {
           id="seller_phone"
           name="seller_info.phone"
           className="border rounded w-full py-2 px-3"
+          defaultValue={property.seller_info.phone}
           placeholder="Phone"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="images" className="block text-gray-700 font-bold mb-2">
-          Images (Select up to 4 images)
-        </label>
-        <input
-          type="file"
-          id="images"
-          name="images"
-          className="border rounded w-full py-2 px-3"
-          accept="image/*"
-          multiple
-          required
         />
       </div>
 
@@ -255,11 +261,11 @@ const PropertyAddForm = () => {
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Add Property
+          Update Property
         </button>
       </div>
     </form>
   );
 };
 
-export default PropertyAddForm;
+export default PropertyEditForm;

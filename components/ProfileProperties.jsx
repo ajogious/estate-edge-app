@@ -3,6 +3,7 @@
 import deleteProperty from "@/app/actions/deleteProperty";
 import Link from "next/link";
 import { useState } from "react";
+import FlashToast from "./FlashToast";
 
 const ProfileProperties = ({ properties: initialProperties }) => {
   const [properties, setProperties] = useState(initialProperties);
@@ -14,13 +15,17 @@ const ProfileProperties = ({ properties: initialProperties }) => {
 
     if (!confirmed) return;
 
-    await deleteProperty(propertyId);
+    try {
+      await deleteProperty(propertyId);
 
-    const updateProperties = properties.filter(
-      (property) => property._id !== propertyId
-    );
+      setProperties((prev) =>
+        prev.filter((property) => property._id !== propertyId)
+      );
 
-    setProperties(updateProperties);
+      toast.success("Property deleted successfully");
+    } catch (error) {
+      toast.error("Failed to delete property");
+    }
   };
 
   return properties.map((property, index) => (
@@ -43,7 +48,7 @@ const ProfileProperties = ({ properties: initialProperties }) => {
       </div>
       <div className="mt-2">
         <Link
-          href="/add-property.html"
+          href={`/properties/${property._id}/edit`}
           className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
         >
           Edit
